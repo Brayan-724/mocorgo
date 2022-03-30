@@ -14,7 +14,7 @@ export class BallBody extends Body {
     }
   }
 
-  setPosition(pos: Vector2Like, a = this.angle) {
+  setPosition(pos: Vector2Like, _a = this.angle) {
     this.pos.from(pos);
     this.comp[0].pos = this.pos;
   }

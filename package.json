@@ -4,7 +4,8 @@
   "description": "A physics library in typescript",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist; tsc --build --verbose && ef-tspm -v"
+    "build": "rm -rf dist; tsc --build --verbose && ef-tspm -v",
+    "prepublish": "npm run build"
   },
   "repository": "https://github.com/Brayan-724/mocorgo",
   "author": "Apika Luca",
