@@ -1,6 +1,6 @@
 {
-  "name": "mocorgo",
-  "version": "0.0.1",
+  "name": "@apika_luca/mocorgo",
+  "version": "1.0.0",
   "description": "A physics library in typescript",
   "main": "index.js",
   "scripts": {
