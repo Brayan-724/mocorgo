@@ -1,0 +1,19 @@
+{
+  "name": "@apika_luca/mocorgo",
+  "version": "1.0.0",
+  "description": "A physics library in typescript",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist; tsc --build --verbose && ef-tspm -v"
+  },
+  "repository": "https://github.com/Brayan-724/mocorgo",
+  "author": "Apika Luca",
+  "license": "GNU GPLv3",
+  "private": false,
+  "devDependencies": {
+    "@ef-carbon/tspm": "^2.2.5",
+    "@types/jest": "^27.4.1",
+    "jest": "^27.5.1",
+    "typescript": "^4.6.3"
+  }
+}
