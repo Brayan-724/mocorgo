@@ -2,8 +2,7 @@ import { TriangleComposite } from '@composite/Triangle';
 import { Vector2, Vector2Like } from '@utils/Vector2';
 import { Body } from './Body';
 
-export class StarBody extends Body {
-  comp: [TriangleComposite, TriangleComposite];
+export class StarBody extends Body<[TriangleComposite, TriangleComposite]> {
   radius: number;
 
   constructor(pos: Vector2Like, r: number, m: number) {
@@ -27,51 +26,23 @@ export class StarBody extends Body {
     const triangle2Pos2 = center.add(upDirScaled).add(upDirNormalScaledNeg);
     const triangle2Pos3 = center.add(upDirScaled).add(upDirNormalScaled);
 
-    this.comp = [
+    this.composite = [
       new TriangleComposite(triangle1Pos1, triangle1Pos2, triangle1Pos3),
       new TriangleComposite(triangle2Pos1, triangle2Pos2, triangle2Pos3),
     ];
-    this.pos = this.comp[0].pos;
+    this._pos = this.composite[0].pos;
 
-    this.m = m;
-    if (this.m === 0) {
-      this.inv_m = 0;
-    } else {
-      this.inv_m = 1 / this.m;
-    }
-    this.inertia = (this.m * (2 * this.radius) ** 2) / 12;
-    if (this.m === 0) {
-      this.inv_inertia = 0;
-    } else {
-      this.inv_inertia = 1 / this.inertia;
-    }
-  }
-
-  keyControl() {
-    if (this.up) {
-      this.acc = this.comp[0].dir.scale(-this.keyForce);
-    }
-    if (this.down) {
-      this.acc = this.comp[0].dir.scale(this.keyForce);
-    }
-    if (this.left) {
-      this.angVel = -this.angKeyForce;
-    }
-    if (this.right) {
-      this.angVel = this.angKeyForce;
-    }
-    if (!this.up && !this.down) {
-      this.acc.from(0, 0);
-    }
+    this.mass = m;
+    this.inertia = (this.mass * (2 * this.radius) ** 2) / 12;
   }
 
   setPosition(pos: Vector2Like, a = this.angle) {
     this.pos.from(pos);
     this.angle = a;
-    this.comp[0].pos = this.pos;
-    this.comp[1].pos = this.pos;
-    this.comp[0].getVertices(this.angle + this.angVel);
-    this.comp[1].getVertices(this.angle + this.angVel);
+    this.composite[0].pos = this.pos;
+    this.composite[1].pos = this.pos;
+    this.composite[0].getVertices(this.angle + this.angVel);
+    this.composite[1].getVertices(this.angle + this.angVel);
     this.angle += this.angVel;
   }
 
