@@ -2,8 +2,7 @@ import { LineComposite } from '@composite/Line';
 import { Vector2, Vector2Like } from '@utils/Vector2';
 import { Body } from './Body';
 
-export class WallBody extends Body {
-  comp: [LineComposite];
+export class WallBody extends Body<[LineComposite]> {
 
   start: Vector2;
   end: Vector2;
@@ -13,9 +12,9 @@ export class WallBody extends Body {
     super(pos0);
     this.start = new Vector2(pos0);
     this.end = new Vector2(pos1);
-    this.comp = [new LineComposite(pos0, pos1)];
+    this.composite = [new LineComposite(pos0, pos1)];
     this.dir = this.end.clone.subtract(this.start).unit();
-    this.pos = new Vector2(
+    this._pos = new Vector2(
       (this.start.x + this.end.x) / 2,
       (this.start.y + this.end.y) / 2
     );

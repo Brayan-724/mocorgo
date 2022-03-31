@@ -1,6 +1,10 @@
 import { Body } from '@bodies/Body';
 import { Vector2 } from '@utils/Vector2';
 
+/**
+ * Collision manifold, consisting the data for collision handling.
+ * Manifolds are collected in an array for every frame
+ */
 export class CollData {
   body1: Body;
   body2: Body;
@@ -18,22 +22,26 @@ export class CollData {
 
   penRes() {
     let penResolution = this.normal.clone.scale(
-      this.penetration / (this.body1.inv_m + this.body2.inv_m)
+      this.penetration / (this.body1.inv_mass + this.body2.inv_mass)
     );
 
-    this.body1.pos.add(penResolution.clone.scale(this.body1.inv_m));
-    this.body2.pos.add(penResolution.scale(-this.body2.inv_m));
+    this.body1.pos.add(penResolution.clone.scale(this.body1.inv_mass));
+    this.body2.pos.add(penResolution.scale(-this.body2.inv_mass));
   }
 
   collRes() {
     //1. Closing velocity
-    let collArm1 = this.contactPoint.clone.subtract(this.body1.comp[0].pos);
+    let collArm1 = this.contactPoint.clone.subtract(
+      this.body1.composite[0].pos
+    );
     let rotVel1 = new Vector2(
       -this.body1.angVel * collArm1.y,
       this.body1.angVel * collArm1.x
     );
     let closVel1 = this.body1.vel.add(rotVel1);
-    let collArm2 = this.contactPoint.clone.subtract(this.body2.comp[0].pos);
+    let collArm2 = this.contactPoint.clone.subtract(
+      this.body2.composite[0].pos
+    );
     let rotVel2 = new Vector2(
       -this.body2.angVel * collArm2.y,
       this.body2.angVel * collArm2.x
@@ -53,12 +61,13 @@ export class CollData {
     let vsep_diff = new_sepVel - sepVel;
 
     let impulse =
-      vsep_diff / (this.body1.inv_m + this.body2.inv_m + impAug1 + impAug2);
+      vsep_diff /
+      (this.body1.inv_mass + this.body2.inv_mass + impAug1 + impAug2);
     let impulseVec = this.normal.clone.scale(impulse);
 
     //3. Changing the velocities
-    this.body1.vel.add(impulseVec.clone.scale(this.body1.inv_m));
-    this.body2.vel.add(impulseVec.scale(-this.body2.inv_m));
+    this.body1.vel.add(impulseVec.clone.scale(this.body1.inv_mass));
+    this.body2.vel.add(impulseVec.scale(-this.body2.inv_mass));
 
     this.body1.angVel +=
       this.body1.inv_inertia * Vector2.cross(collArm1, impulseVec);
