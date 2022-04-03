@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "rm:build": "rm -rf dist",
-    "build:node": "tsc --build --verbose -p tsconfig.json && ef-tspm -v",
-    "build:browser": "tsc --build --verbose -p tsconfig.browser.json && ef-tspm -v",
+    "build:node": "echo \"Building for Node\" && tsc --build --verbose -p tsconfig.json && ef-tspm -v",
+    "build:browser": "echo \"Building for Browser\" && tsc -p tsconfig.browser.json",
     "build": "yarn rm:build; yarn build:node && yarn build:browser",
     "prepublish": "yarn build"
   },
@@ -16,6 +16,9 @@
   "private": false,
   "devDependencies": {
     "@ef-carbon/tspm": "^2.2.5",
+    "@swc/cli": "^0.1.57",
+    "@swc/core": "^1.2.163",
+    "@swc/helpers": "^0.3.8",
     "@types/jest": "^27.4.1",
     "jest": "^27.5.1",
     "typescript": "^4.6.3"

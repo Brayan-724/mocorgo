@@ -3,7 +3,11 @@
   "compilerOptions": {
     "outFile": "./dist/bundle.js",
     "target": "es5",
-    "outDir": ""
+    "isolatedModules": false,
+    "module": "System",
+    "moduleResolution": "Node",
+    "outDir": "",
+    "resolveJsonModule": false
   },
   "extends": "./tsconfig.json"
 }
