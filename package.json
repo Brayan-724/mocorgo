@@ -4,8 +4,11 @@
   "description": "A physics library in typescript",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist; tsc --build --verbose && ef-tspm -v",
-    "prepublish": "npm run build"
+    "rm:build": "rm -rf dist",
+    "build:node": "tsc --build --verbose -p tsconfig.json && ef-tspm -v",
+    "build:browser": "tsc --build --verbose -p tsconfig.browser.json && ef-tspm -v",
+    "build": "yarn rm:build; yarn build:node && yarn build:browser",
+    "prepublish": "yarn build"
   },
   "repository": "https://github.com/Brayan-724/mocorgo",
   "author": "Apika Luca",
