@@ -1,11 +1,11 @@
 {
   "name": "@apika_luca/mocorgo",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A physics library in typescript",
   "main": "index.js",
   "scripts": {
     "rm:build": "rm -rf dist",
-    "build:node": "echo \"Building for Node\" && tsc --build --verbose -p tsconfig.json && ef-tspm -v",
+    "build:node": "echo \"Building for Node\" && tsc --build --verbose && ef-tspm -v",
     "build:browser": "echo \"Building for Browser\" && tsc -p tsconfig.browser.json",
     "build": "yarn rm:build; yarn build:node && yarn build:browser",
     "prepublish": "yarn build"
